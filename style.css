@@ -20,24 +20,28 @@ body {
 
 h1 {
     text-align: center;
-    color: white;
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 50%, #4facfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     margin-bottom: 10px;
-    text-shadow:
-        3px 3px 6px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(118, 75, 162, 0.4);
+    text-shadow: none;
     font-weight: 900;
     letter-spacing: 1px;
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 h2 {
     text-align: center;
-    color: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: clamp(1rem, 3vw, 1.3rem);
     margin-bottom: 30px;
-    font-weight: 500;
+    font-weight: 600;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .container {
