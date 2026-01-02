@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Cooperation Dynamics: Prisoner's Dilemma</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1>Prisoner's Dilemma: 10-Round Game</h1>
+
+        <section id="rules">
+            <h2>Game Rules</h2>
+            <p>
+                Choose <strong>Cooperate (C)</strong> or
+                <strong>Defect (D)</strong> each round. CPU has a hidden
+                strategy.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Outcome</th>
+                        <th>You</th>
+                        <th>CPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>C, C</td>
+                        <td>3</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>D, D</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>D, C</td>
+                        <td>5</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>C, D</td>
+                        <td>0</td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="game">
+            <h2>Make your choice</h2>
+            <button id="cooperate">Cooperate (C)</button>
+            <button id="defect">Defect (D)</button>
+            <p id="roundInfo">Round 1 of 10</p>
+            <ul id="log"></ul>
+            <p id="finalScore"></p>
+        </section>
+
+        <script src="script.js"></script>
+    </body>
+</html>
