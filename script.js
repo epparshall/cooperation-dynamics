@@ -11,9 +11,16 @@ const totalRounds = 10;
 let round = 1;
 let userScore = 0;
 let cpuScore = 0;
+let cpu = null;
+
 const log = document.getElementById("log");
 const roundInfo = document.getElementById("roundInfo");
 const finalScore = document.getElementById("finalScore");
+const userScoreDisplay = document.getElementById("userScoreDisplay");
+const cpuScoreDisplay = document.getElementById("cpuScoreDisplay");
+const cooperateBtn = document.getElementById("cooperate");
+const defectBtn = document.getElementById("defect");
+const playAgainBtn = document.getElementById("playAgain");
 
 // --- CPU Strategy implementations ---
 function alwaysCooperate() {
@@ -55,7 +62,7 @@ function grimTrigger() {
 }
 
 function pavlov() {
-	let lastOutcome = "C"; // "C" = cooperated last round, "D" = defected
+	let lastOutcome = "C";
 	return {
 		name: "Pavlov",
 		move: () => lastOutcome,
@@ -110,7 +117,7 @@ function suspiciousTitForTat() {
 	};
 }
 
-// --- Pick a random CPU strategy ---
+// --- Strategy list ---
 const strategies = [
 	alwaysCooperate,
 	alwaysDefect,
@@ -123,7 +130,37 @@ const strategies = [
 	suspiciousTitForTat,
 ];
 
-const cpu = strategies[Math.floor(Math.random() * strategies.length)]();
+// --- Initialize game ---
+function initGame() {
+	round = 1;
+	userScore = 0;
+	cpuScore = 0;
+	log.innerHTML = "";
+	roundInfo.textContent = `Round ${round} of ${totalRounds}`;
+	finalScore.style.display = "none";
+	playAgainBtn.style.display = "none";
+	cooperateBtn.disabled = false;
+	defectBtn.disabled = false;
+	userScoreDisplay.textContent = "0";
+	cpuScoreDisplay.textContent = "0";
+
+	// Pick a random CPU strategy
+	cpu = strategies[Math.floor(Math.random() * strategies.length)]();
+}
+
+// --- Update score displays ---
+function updateScores() {
+	userScoreDisplay.textContent = userScore;
+	cpuScoreDisplay.textContent = cpuScore;
+
+	// Add pulse animation
+	userScoreDisplay.style.animation = "none";
+	cpuScoreDisplay.style.animation = "none";
+	setTimeout(() => {
+		userScoreDisplay.style.animation = "pulse 0.3s ease";
+		cpuScoreDisplay.style.animation = "pulse 0.3s ease";
+	}, 10);
+}
 
 // --- Main game logic ---
 function playRound(userMove) {
@@ -135,33 +172,70 @@ function playRound(userMove) {
 	userScore += uScore;
 	cpuScore += cScore;
 
+	// Update score displays
+	updateScores();
+
 	// Log round
 	const li = document.createElement("li");
-	li.textContent = `Round ${round}: You chose ${userMove}, CPU chose ${cpuMove}. Scores: You ${userScore} - CPU ${cpuScore}`;
-	log.appendChild(li);
+	const moveEmoji = {
+		C: "🤝",
+		D: "⚔️",
+	};
+	li.innerHTML = `<strong>Round ${round}:</strong> You ${moveEmoji[userMove]} ${userMove}, CPU ${moveEmoji[cpuMove]} ${cpuMove} <span class="round-score">(+${uScore} pts)</span>`;
+	log.insertBefore(li, log.firstChild);
 
 	// Update CPU with observation
 	if (cpu.observe.length === 2) {
-		cpu.observe(cpuMove, userMove); // For Pavlov which needs both
+		cpu.observe(userMove, cpuMove);
 	} else {
-		cpu.observe(cpuMove);
+		cpu.observe(userMove);
 	}
 
 	round++;
+
 	if (round <= totalRounds) {
 		roundInfo.textContent = `Round ${round} of ${totalRounds}`;
 	} else {
-		roundInfo.textContent = "Game Over!";
-		finalScore.textContent = `Final Score: You ${userScore} - CPU ${cpuScore}`;
-		document.getElementById("cooperate").disabled = true;
-		document.getElementById("defect").disabled = true;
+		endGame();
 	}
 }
 
+// --- End game ---
+function endGame() {
+	roundInfo.textContent = "Game Over!";
+	cooperateBtn.disabled = true;
+	defectBtn.disabled = true;
+
+	// Determine winner
+	let result = "";
+	let resultClass = "";
+	if (userScore > cpuScore) {
+		result = "🎉 You Win!";
+		resultClass = "win";
+	} else if (cpuScore > userScore) {
+		result = "😔 CPU Wins!";
+		resultClass = "lose";
+	} else {
+		result = "🤝 It's a Tie!";
+		resultClass = "tie";
+	}
+
+	finalScore.innerHTML = `
+		<div class="result-${resultClass}">${result}</div>
+		<div class="final-scores">
+			<div>Your Score: <span class="highlight">${userScore}</span></div>
+			<div>CPU Score: <span class="highlight">${cpuScore}</span></div>
+		</div>
+		<div class="strategy-reveal">CPU was using: <strong>${cpu.name}</strong></div>
+	`;
+	finalScore.style.display = "block";
+	playAgainBtn.style.display = "block";
+}
+
 // --- Hook up buttons ---
-document
-	.getElementById("cooperate")
-	.addEventListener("click", () => playRound("C"));
-document
-	.getElementById("defect")
-	.addEventListener("click", () => playRound("D"));
+cooperateBtn.addEventListener("click", () => playRound("C"));
+defectBtn.addEventListener("click", () => playRound("D"));
+playAgainBtn.addEventListener("click", initGame);
+
+// --- Start game ---
+initGame();
