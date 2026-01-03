@@ -16,6 +16,8 @@ let cpu = null;
 const log = document.getElementById("log");
 const roundInfo = document.getElementById("roundInfo");
 const finalScore = document.getElementById("finalScore");
+const finalScoreInRules = document.getElementById("finalScoreInRules");
+const rulesTable = document.getElementById("rulesTable");
 const userScoreDisplay = document.getElementById("userScoreDisplay");
 const cpuScoreDisplay = document.getElementById("cpuScoreDisplay");
 const cooperateBtn = document.getElementById("cooperate");
@@ -138,6 +140,8 @@ function initGame() {
 	log.innerHTML = "";
 	roundInfo.textContent = `Round ${round} of ${totalRounds}`;
 	finalScore.style.display = "none";
+	finalScoreInRules.style.display = "none";
+	rulesTable.style.display = "table";
 	playAgainBtn.parentElement.style.display = "none";
 	cooperateBtn.disabled = false;
 	defectBtn.disabled = false;
@@ -220,7 +224,9 @@ function endGame() {
 		resultClass = "tie";
 	}
 
-	finalScore.innerHTML = `
+	// Hide rules table and show final score in its place
+	rulesTable.style.display = "none";
+	finalScoreInRules.innerHTML = `
 		<div class="result-${resultClass}">${result}</div>
 		<div class="final-scores">
 			<div>Your Score: <span class="highlight">${userScore}</span></div>
@@ -228,7 +234,18 @@ function endGame() {
 		</div>
 		<div class="strategy-reveal">CPU was using: <strong>${cpu.name}</strong></div>
 	`;
-	finalScore.style.display = "block";
+	finalScoreInRules.style.display = "block";
+
+	// Also show below buttons
+	// finalScore.innerHTML = `
+	// 	<div class="result-${resultClass}">${result}</div>
+	// 	<div class="final-scores">
+	// 		<div>Your Score: <span class="highlight">${userScore}</span></div>
+	// 		<div>CPU Score: <span class="highlight">${cpuScore}</span></div>
+	// 	</div>
+	// 	<div class="strategy-reveal">CPU was using: <strong>${cpu.name}</strong></div>
+	// `;
+	// finalScore.style.display = "block";
 	playAgainBtn.parentElement.style.display = "block";
 }
 

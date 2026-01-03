@@ -26,7 +26,7 @@
                     Choose <strong>Cooperate (C)</strong> or
                     <strong>Defect (D)</strong>. CPU has a hidden strategy.
                 </p>
-                <table>
+                <table id="rulesTable">
                     <thead>
                         <tr>
                             <th>Outcome</th>
@@ -57,6 +57,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <div id="finalScoreInRules" style="display: none"></div>
             </section>
             <section id="scoreboard">
                 <div class="score-container">
@@ -77,10 +78,10 @@
                     <button id="cooperate">🤝 Cooperate</button>
                     <button id="defect">⚔️ Defect</button>
                 </div>
+                <div id="finalScore" style="display: none"></div>
                 <div class="play-again-container" style="display: none">
                     <button id="playAgain">🔄 Play Again</button>
                 </div>
-                <div id="finalScore" style="display: none"></div>
                 <ul id="log"></ul>
 
                 <div class="bitcoin-donate">

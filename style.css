@@ -262,6 +262,16 @@ h3 {
     animation: slideIn 0.5s ease;
 }
 
+#finalScoreInRules {
+    text-align: center;
+    margin-top: 10px;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s ease;
+}
+
 .result-win,
 .result-lose,
 .result-tie {
