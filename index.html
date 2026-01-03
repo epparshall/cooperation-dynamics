@@ -21,11 +21,10 @@
                 <a href="privacy.html">Privacy Policy</a>
             </nav>-->
             <section id="rules">
-                <h3>Game Rules</h3>
+                <!--<h3>Game Rules</h3>-->
                 <p>
                     Choose <strong>Cooperate (C)</strong> or
-                    <strong>Defect (D)</strong> each round. CPU has a hidden
-                    strategy.
+                    <strong>Defect (D)</strong>. CPU has a hidden strategy.
                 </p>
                 <table>
                     <thead>
@@ -78,11 +77,11 @@
                     <button id="cooperate">🤝 Cooperate</button>
                     <button id="defect">⚔️ Defect</button>
                 </div>
-                <ul id="log"></ul>
+                <div class="play-again-container" style="display: none">
+                    <button id="playAgain">🔄 Play Again</button>
+                </div>
                 <div id="finalScore" style="display: none"></div>
-                <button id="playAgain" style="display: none">
-                    🔄 Play Again
-                </button>
+                <ul id="log"></ul>
 
                 <div class="bitcoin-donate">
                     <p>₿ Donate with Bitcoin</p>

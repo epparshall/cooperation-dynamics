@@ -138,7 +138,7 @@ function initGame() {
 	log.innerHTML = "";
 	roundInfo.textContent = `Round ${round} of ${totalRounds}`;
 	finalScore.style.display = "none";
-	playAgainBtn.style.display = "none";
+	playAgainBtn.parentElement.style.display = "none";
 	cooperateBtn.disabled = false;
 	defectBtn.disabled = false;
 	userScoreDisplay.textContent = "0";
@@ -229,7 +229,7 @@ function endGame() {
 		<div class="strategy-reveal">CPU was using: <strong>${cpu.name}</strong></div>
 	`;
 	finalScore.style.display = "block";
-	playAgainBtn.style.display = "block";
+	playAgainBtn.parentElement.style.display = "block";
 }
 
 // --- Hook up buttons ---
